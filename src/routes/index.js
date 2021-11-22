@@ -11,10 +11,8 @@ export default function Index() {
   return (
     <Router>
       <Switch>
-       
         <Private path="/home" component={Home} />
         <Public path="/" component={Login} />
-        <Route component={Error} />
       </Switch>
     </Router>
   );
