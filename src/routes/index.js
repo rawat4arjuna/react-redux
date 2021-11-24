@@ -13,7 +13,7 @@ export default function Index() {
       <Switch>
         <Private path="/home" component={Home} />
         <Public path="/login" component={Login} />
-        <Route component={Login} />
+        <Route path="/referalcode" component={Login} />
       </Switch>
     </Router>
   );
