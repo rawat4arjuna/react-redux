@@ -36,6 +36,8 @@ const VerifyToken = (props) => {
     mode: "all",
     resolver: yupResolver(otpSchema),
   });
+
+//   Handle email token verification
   const onSubmit = async (data) => {
     let body = {
       email: email,
@@ -43,7 +45,6 @@ const VerifyToken = (props) => {
       verificationCode: data.otp,
     };
     const res = await dispatch(VERIFY_EMAIL_TOKEN(body));
-    console.log(res, "pppp");
     if (res?.isLogin) {
       history.push({
         pathname: "/home",
@@ -59,6 +60,8 @@ const VerifyToken = (props) => {
       setState({ attempts: attempts + 1 });
     }
   };
+
+  // resend token function
   const resendtoken = async () => {
     const res = await RESEND_EMAIL_TOKEN({
       email: email,

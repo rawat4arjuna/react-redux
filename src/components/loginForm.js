@@ -18,6 +18,7 @@ const EmailCheck = () => {
     mode: "all",
     resolver: yupResolver(emailExistSchema),
   });
+  //Submit Email Verification
   const onSubmit = (data) => {
     dispatch(REQUEST_EMAIL_VERIFICATION(data));
   };
