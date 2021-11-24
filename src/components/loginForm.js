@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
-import { useSelector, useDispatch } from "react-redux";
+import {useDispatch } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { PaperCustom } from "./styleCustoms";
 import { emailExistSchema } from "../utils/schema";
@@ -10,8 +10,6 @@ import { REQUEST_EMAIL_VERIFICATION } from "../redux/actions/userActions";
 
 const EmailCheck = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  console.log("user", user);
   const {
     handleSubmit,
     control,
