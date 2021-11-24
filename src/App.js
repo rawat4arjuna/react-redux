@@ -4,14 +4,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Route from "./routes/index";
 import { ThemeProvider } from "@mui/material/styles";
-import { Theme } from "./utils/Theme/light";
+import { theme } from "./utils/Theme/light";
 import { Grid, CssBaseline } from "@mui/material";
 import { Store } from "./redux/store";
 function App() {
   return (
     <Provider store={Store} className="App">
       <ToastContainer />
-      <ThemeProvider theme={Theme}>
+      <ThemeProvider theme={theme}>
         <CssBaseline />
         <Grid
           container

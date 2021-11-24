@@ -18,7 +18,6 @@ export const REQUEST_EMAIL_VERIFICATION = (body) => async (dispatch) => {
       data: body,
     });
     const { message } = response.data;
-    console.log(message, response.data);
     toast.success(message);
     await setItem("Auth", {
       token: response.data?.results?.token,
@@ -37,7 +36,7 @@ export const REQUEST_EMAIL_VERIFICATION = (body) => async (dispatch) => {
       },
     });
   } catch (e) {
-    console.log("ERROR", e);
+    toast.error("Something went wrong please try again");
   }
 };
 
@@ -56,7 +55,7 @@ export const SIGN_UP = (body) => async (dispatch) => {
       payload: { isVerification: response.data?.success },
     });
   } catch (e) {
-    console.log("ERROR", e);
+    toast.error("Something went wrong please try again");
   }
 };
 
@@ -68,7 +67,7 @@ export const VERIFY_EMAIL_TOKEN = (body) => async (dispatch) => {
       url: url,
       data: body,
     });
-    const { message, results, success } = response.data;
+    const { message, results, success, statusCode } = response.data;
     if (success) {
       toast.success(message);
       if (results?.isLogin) {
@@ -77,13 +76,14 @@ export const VERIFY_EMAIL_TOKEN = (body) => async (dispatch) => {
           payload: { profile: results.user },
         });
         // setItem("authToken", results.user.customToken);
-        return true;
+        return { isLogin: results?.isLogin, statusCode };
       } else {
         toast.error("Something went wrong please try again");
-        return false;
+        return { isLogin: results?.isLogin, statusCode };
       }
     } else {
       toast.error(message);
+      return { isLogin: false, statusCode };
     }
   } catch (e) {
     toast.error("Something went wrong please try again");
@@ -98,12 +98,14 @@ export const RESEND_EMAIL_TOKEN = async (body) => {
       url: url,
       data: body,
     });
-    const { message, success } = response.data;
+    const { message, success, statusCode } = response.data;
+
     if (success) {
       toast.success(message);
     } else {
       toast.error(message);
     }
+    return statusCode;
   } catch (e) {
     toast.error("Something went wrong please try again");
   }
@@ -113,7 +115,6 @@ export const LOGOUT =
   ({ id, accessToken }) =>
   async (dispatch) => {
     try {
-      console.log(id, accessToken);
       const url = `${CONFIG.BASE_URL}${URLS.LOGOUT_USER.url}${id}`;
       const response = await axios({
         method: URLS.LOGOUT_USER.method,
@@ -135,3 +136,24 @@ export const LOGOUT =
       toast.error("Something went wrong please try again");
     }
   };
+
+export const CHECK_REFERAL_TOKEN = async (token) => {
+  try {
+    const url = `${CONFIG.BASE_URL}${URLS.CHECK_REFERAL_TOKEN.url}${token}`;
+    const response = await axios({
+      method: URLS.CHECK_REFERAL_TOKEN.method,
+      url: url,
+    });
+    const { message, success } = response.data;
+    if (success) {
+      toast.success(message);
+      return true;
+    } else {
+      toast.error(message);
+      return false;
+    }
+  } catch (e) {
+    toast.error("Something went wrong please try again");
+    return false;
+  }
+};

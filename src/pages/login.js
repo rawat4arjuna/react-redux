@@ -26,7 +26,7 @@ export default function Login() {
         {{
           0: <EmailCheck />,
           1: <SignupForm />,
-          2: <VerifyToken />,
+          2: <VerifyToken setParentState={setState} />,
         }[cardType] || <div>Something Went wrong Please Try again</div>}
       </CenterGrid>
     </React.Fragment>

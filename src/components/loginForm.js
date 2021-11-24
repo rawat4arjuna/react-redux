@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
-import {useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { PaperCustom } from "./styleCustoms";
 import { emailExistSchema } from "../utils/schema";
@@ -21,34 +21,36 @@ const EmailCheck = () => {
   const onSubmit = (data) => {
     dispatch(REQUEST_EMAIL_VERIFICATION(data));
   };
-  console.log("p[p[p[p[", errors);
   return (
-    <Grid item xs={12} sm={12} md={4}>
+    <Grid container xs={12} sm={12} md={4}>
       <PaperCustom>
         <form>
           <Typography variant="heading" component="h2">
-            React Redux
+            React Redux Login
           </Typography>
-          <Grid item sm={12}>
-            <Controller
-              name={"email"}
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextField
-                  type={"email"}
-                  onChange={onChange}
-                  value={value}
-                  label={"Enter Email"}
-                  fullwidth={true}
-                />
-              )}
-            />
-          </Grid>
-          <FormError value={errors?.email?.message} />
-          <Grid item sm={12}>
-            <Button variant="contained" onClick={handleSubmit(onSubmit)}>
-              Continue
-            </Button>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Controller
+                name={"email"}
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <TextField
+                    type={"email"}
+                    style={{ minWidth: "250px" }}
+                    onChange={onChange}
+                    value={value}
+                    label={"Enter Email"}
+                    fullwidth
+                  />
+                )}
+              />
+            </Grid>
+            <FormError value={errors?.email?.message} />
+            <Grid item xs={12}>
+              <Button variant="contained" onClick={handleSubmit(onSubmit)}>
+                Continue
+              </Button>
+            </Grid>
           </Grid>
         </form>
       </PaperCustom>

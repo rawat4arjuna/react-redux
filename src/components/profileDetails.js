@@ -25,25 +25,25 @@ const ProfileDetails = () => {
           <Typography variant="heading" component="h2">
             Profile
           </Typography>
-          <Grid item sm={12}>
+          <Grid item xs={12}>
             <Typography variant="heading" component="h5">
               Full Name :
             </Typography>
             <Typography variant="body">{`${profile?.firstName} ${profile?.lastName}`}</Typography>
           </Grid>
-          <Grid item sm={12}>
+          <Grid item xs={12}>
             <Typography variant="heading" component="h5">
               Email :
             </Typography>
             <Typography variant="body">{profile?.email}</Typography>
           </Grid>
-          <Grid item sm={12}>
+          <Grid item xs={12}>
             <Typography variant="heading" component="h5">
               Phone :
             </Typography>
             <Typography variant="body">{profile?.phoneNumber}</Typography>
           </Grid>
-          <Grid item sm={12}>
+          <Grid item xs={12}>
             <Button variant="contained" onClick={logout}>
               Logout
             </Button>
