@@ -14,3 +14,7 @@ export const signupSchema = yup.object({
     .oneOf([true], Validation.terms.required)
     .required(Validation.terms.required),
 });
+
+export const otpSchema = yup.object({
+  otp: yup.string().required(Validation.otp.required),
+});

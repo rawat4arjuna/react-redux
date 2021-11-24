@@ -10,4 +10,7 @@ export const Validation = {
   terms: {
     required: "Must Accept Terms and Conditions",
   },
+  otp: {
+    required: "Must be exactly 6 characters",
+  },
 };

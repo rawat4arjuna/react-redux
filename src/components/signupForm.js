@@ -15,7 +15,10 @@ import { PaperCustom } from "./styleCustoms";
 import { signupSchema } from "../utils/schema";
 import { FormError } from "./formError";
 import StateHook from "../hooks/state";
-import { REQUEST_EMAIL_VERIFICATION } from "../redux/actions/userActions";
+import {
+  REQUEST_EMAIL_VERIFICATION,
+  SIGN_UP,
+} from "../redux/actions/userActions";
 const initState = {
   source: "WEB_APP",
 };
@@ -33,7 +36,15 @@ const SignupForm = () => {
     resolver: yupResolver(signupSchema),
   });
   const onSubmit = (data) => {
-    dispatch(REQUEST_EMAIL_VERIFICATION(data));
+    const body = {
+      firstName: data.firstName,
+      email: email,
+      referredCodeKey: data.referredCodeKey,
+      agreeToPrivacyPolicy: data.agreeToPrivacyPolicy,
+      token: user.token,
+      source: source,
+    };
+    dispatch(SIGN_UP(body));
   };
   return (
     <Grid item xs={12} sm={12} md={4} spacing={2}>
@@ -61,7 +72,7 @@ const SignupForm = () => {
           <br />
           <Grid item sm={12}>
             <TextField
-              type={"text"}
+              type={"email"}
               value={email}
               label={"Enter Email"}
               fullwidth={true}

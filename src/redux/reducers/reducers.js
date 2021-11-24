@@ -1,17 +1,18 @@
-import { SET_LOGIN_TYPE, SET_USER_TYPE, RESET, SET_DATA } from "./types";
+import { SET_LOGIN_TYPE, SET_SIGNUP_TYPE, RESET, SET_DATA } from "./types";
 const initialState = {
   user: {},
   email: "",
+  isVerification: false,
+  profile: {},
 };
 const reducer = (state = initialState, action) => {
-  console.log("p[p[p[=====", action);
   switch (action.type) {
     case SET_LOGIN_TYPE:
       return {
         ...state,
         user: action.payload,
       };
-    case SET_USER_TYPE:
+    case SET_SIGNUP_TYPE:
       return {
         ...state,
         user: action.payload,
@@ -24,7 +25,7 @@ const reducer = (state = initialState, action) => {
     case RESET:
       return {
         ...state,
-        user: action.payload,
+        ...initialState,
       };
 
     default:
