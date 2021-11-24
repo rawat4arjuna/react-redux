@@ -15,7 +15,6 @@ function App() {
         <CssBaseline />
         <Grid
           container
-          fullwidth={true}
           style={{ height: "100vh" }}
           direction="row"
           justifyContent="center"
