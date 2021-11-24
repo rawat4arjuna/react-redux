@@ -30,6 +30,7 @@ const themeOptions = {
           color: "white",
           height: 48,
           padding: "0 30px",
+          minWidth: "250px"
         },
       },
     },

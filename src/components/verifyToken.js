@@ -43,13 +43,18 @@ const VerifyToken = (props) => {
       verificationCode: data.otp,
     };
     const res = await dispatch(VERIFY_EMAIL_TOKEN(body));
+    console.log(res, "pppp");
     if (res?.isLogin) {
       history.push({
         pathname: "/home",
         state: { isLogin: true },
       });
-    } else if (res?.statusCode == 1032) {
-      setParentState({ cardType: 1 });
+    } else if (
+      res?.messageObj?.wrongEmailTokenCount > 2 ||
+      res?.messageObj?.resendEmailTokenCount > 2 ||
+      res?.messageObj?.otpExpired
+    ) {
+      setParentState({ cardType: 0 });
     } else if (typeof res == "undefined") {
       setState({ attempts: attempts + 1 });
     }
@@ -88,9 +93,18 @@ const VerifyToken = (props) => {
           </Grid>
           <FormError value={errors?.otp?.message} />
           <br />
-          <Button onClick={resendtoken}>Resend Token</Button>
+          <Typography
+            style={{ cursor: "pointer", color: "blue", marginBottom: "10px" }}
+            onClick={resendtoken}
+          >
+            Resend Token
+          </Typography>
           <Grid item xs={12}>
-            <Button variant="contained" onClick={handleSubmit(onSubmit)}>
+            <Button
+              variant="contained"
+              onClick={handleSubmit(onSubmit)}
+              type="submit"
+            >
               Verify Token
             </Button>
           </Grid>

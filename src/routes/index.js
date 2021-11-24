@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { Switch } from "react-router";
 
 import Public from "./public";
@@ -12,7 +12,8 @@ export default function Index() {
     <Router>
       <Switch>
         <Private path="/home" component={Home} />
-        <Public path="/" component={Login} />
+        <Public path="/login" component={Login} />
+        <Route component={Login} />
       </Switch>
     </Router>
   );

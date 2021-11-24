@@ -67,7 +67,7 @@ export const VERIFY_EMAIL_TOKEN = (body) => async (dispatch) => {
       url: url,
       data: body,
     });
-    const { message, results, success, statusCode } = response.data;
+    const { message, results, success, statusCode, messageObj } = response.data;
     if (success) {
       toast.success(message);
       if (results?.isLogin) {
@@ -76,14 +76,18 @@ export const VERIFY_EMAIL_TOKEN = (body) => async (dispatch) => {
           payload: { profile: results.user },
         });
         // setItem("authToken", results.user.customToken);
-        return { isLogin: results?.isLogin, statusCode };
+        return { isLogin: results?.isLogin, messageObj };
       } else {
         toast.error("Something went wrong please try again");
-        return { isLogin: results?.isLogin, statusCode };
+        dispatch({
+          type: SET_DATA,
+          payload: { isVerification: false },
+        });
+        return { isLogin: results?.isLogin, messageObj };
       }
     } else {
       toast.error(message);
-      return { isLogin: false, statusCode };
+      return { isLogin: false, messageObj };
     }
   } catch (e) {
     toast.error("Something went wrong please try again");

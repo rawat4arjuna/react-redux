@@ -9,7 +9,6 @@ const ProfileDetails = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { profile } = useSelector((state) => state);
-  console.log("ppppppp", profile);
   const logout = async () => {
     const islogout = await dispatch(
       LOGOUT({ id: profile._id, accessToken: profile.token })

@@ -47,7 +47,7 @@ const EmailCheck = () => {
             </Grid>
             <FormError value={errors?.email?.message} />
             <Grid item xs={12}>
-              <Button variant="contained" onClick={handleSubmit(onSubmit)}>
+              <Button variant="contained" type="submit" onClick={handleSubmit(onSubmit)}>
                 Continue
               </Button>
             </Grid>

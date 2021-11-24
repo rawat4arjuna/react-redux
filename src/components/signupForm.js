@@ -9,7 +9,9 @@ import {
 } from "@mui/material";
 
 import { Controller, useForm } from "react-hook-form";
+import queryString from "query-string";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { PaperCustom } from "./styleCustoms";
 import { signupSchema } from "../utils/schema";
@@ -21,13 +23,20 @@ const initState = {
   refer: "",
   isValid: false,
   error: "",
+  getToken: false,
 };
 const SignupForm = () => {
   const [state, setState] = StateHook(initState);
-  const { source, refer, isValid, error } = state;
+  const location = useLocation();
   const dispatch = useDispatch();
   const { email, user } = useSelector((state) => state);
-
+  const { source, refer, isValid, error, getToken } = state;
+  const result = queryString.parse(location.search);
+  React.useEffect(() => {
+    if (result?.token && !getToken) {
+      setState({ refer: result?.token, getToken: true });
+    }
+  }, [result]);
   React.useEffect(() => {
     (async () => {
       if (refer.length == 6) {
@@ -136,7 +145,11 @@ const SignupForm = () => {
             </Grid>
             <FormError value={errors?.agreeToPrivacyPolicy?.message} />
             <Grid item xs={12}>
-              <Button variant="contained" onClick={handleSubmit(onSubmit)}>
+              <Button
+                variant="contained"
+                type="submit"
+                onClick={handleSubmit(onSubmit)}
+              >
                 Continue
               </Button>
             </Grid>
