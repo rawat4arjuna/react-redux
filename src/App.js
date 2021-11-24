@@ -1,16 +1,25 @@
 import React from "react";
-import { createStore } from "redux";
 import { Provider } from "react-redux";
-import reducer from "./redux/reducers/reducers";
 import Route from "./routes/index";
 import { ThemeProvider } from "@mui/material/styles";
-import { Theme } from "./utils/Theme/dark";
-const store = createStore(reducer);
+import { Theme } from "./utils/Theme/light";
+import { Grid, CssBaseline } from "@mui/material";
+import {Store} from "./redux/store";
 function App() {
   return (
-    <Provider store={store} className="App">
+    <Provider store={Store} className="App">
       <ThemeProvider theme={Theme}>
-        <Route />
+        <CssBaseline />
+        <Grid
+          container
+          fullwidth={true}
+          style={{ height: "100vh" }}
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Route />
+        </Grid>
       </ThemeProvider>
     </Provider>
   );

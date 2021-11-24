@@ -1,15 +1,22 @@
 import * as React from "react";
-import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-
+import EmailCheck from "../components/loginForm";
+import CenterGrid from "../components/centerGridLayout";
+import StateHook from "../hooks/state";
+const initState = {
+  cardType: 0,
+};
 export default function Login() {
+  const [state, setState] = StateHook(initState);
+  const { cardType } = state;
   return (
     <React.Fragment>
-      <CssBaseline />
-      <Container fullwidth={true}>
-          
-      </Container>
+      <CenterGrid>
+        {
+          {
+            0: <EmailCheck />,
+          }[cardType]
+        }
+      </CenterGrid>
     </React.Fragment>
   );
 }
